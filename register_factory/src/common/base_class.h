@@ -9,9 +9,9 @@ BEGIN_REGISTER_FACTORY_NS(common);
 
 class Base {
 public:
-    Base() {};
+    Base() = default;
     
-    virtual ~Base() {};
+    virtual ~Base() = default;
 
 public:
     virtual void DoProcess() {
