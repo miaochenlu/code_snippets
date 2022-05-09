@@ -1,0 +1,10 @@
+import os
+Import("env")
+
+env = env.Clone()
+
+cpps = Glob("*.cpp")
+for subdir in ['common', 'test_class']:
+    o = SConscript('./%s/SConscript' % subdir, exports='env')
+    cpps += o
+env.Program("../package/factory", source=cpps)
