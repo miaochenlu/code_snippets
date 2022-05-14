@@ -33,7 +33,7 @@ void ThreadPool::Stop() {
 void ThreadPool::CreateThread() {
     for(size_t i = 0; i < mThreadNum; i++) {
         mThreadQueue.push_back(
-            thread(&ThreadPool::WorkerLoop, this, std::ref(i))
+            thread(&ThreadPool::WorkerLoop, this, ref(i))
         );
     }
 }
@@ -52,7 +52,7 @@ void ThreadPool::WorkerLoop(const size_t i) {
 
 bool ThreadPool::PushWorkItem(WorkItemPtr pItem) {
     if(!mPushSignal) return false;
-    std::unique_lock lock(mMutex);
+    unique_lock lock(mMutex);
     while(mWorkItemQueue.size() >= mQueueSize) {
         mQueueFull.wait(lock);
     }
@@ -62,7 +62,7 @@ bool ThreadPool::PushWorkItem(WorkItemPtr pItem) {
 }
 
 WorkItemPtr ThreadPool::PopWorkItem() {
-    std::unique_lock lock(mMutex);
+    unique_lock lock(mMutex);
     while(mWorkItemQueue.size() == 0) {
         mQueueEmpty.wait(lock);
     }
