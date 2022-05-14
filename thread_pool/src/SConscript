@@ -1,0 +1,12 @@
+import os
+Import("env")
+
+env = env.Clone()
+
+cpps = Glob("*.cpp")
+for subdir in ['common', 'workitem', 'thread_pool']:
+    o = SConscript('./%s/SConscript' % subdir, exports='env')
+    cpps += o
+
+env['threadpool_libs'] = ['pthread']
+env.Program("../package/thread_pool", source=cpps, LIBS=env['threadpool_libs'])

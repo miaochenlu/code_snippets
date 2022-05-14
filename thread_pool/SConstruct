@@ -1,0 +1,12 @@
+import os
+env = Environment(CXXFLAGS=["-std=c++17", '-lpthread'])
+
+env['project_root'] = os.getcwd()
+env['project_name'] = "thread_pool"
+
+env.SConscript(
+    dirs = '.',
+    exports = 'env',
+    variant_dir = 'build',
+    duplicate = 1
+)

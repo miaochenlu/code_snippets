@@ -1,0 +1,4 @@
+import os
+Import('env')
+env = env.Clone()
+SConscript('src/SConscript', exports='env')
